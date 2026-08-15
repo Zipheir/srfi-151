@@ -1,8 +1,13 @@
 ;;;; chicken implementation of SRFI 151
 (module srfi-151 ()
   (import scheme)
-  (import (only (chicken base) include case-lambda when)
-          (only (chicken module) export))
+  (cond-expand
+    (chicken-5
+     (import (only (chicken base) include case-lambda when)))
+    (chicken-6
+     (import (only (scheme base) include when)
+             (scheme case-lambda))))
+  (import (only (chicken module) export))
 
   ;; Provides bitwise-not, bitwise-and, butwise-ior, bitwise-xor,
   ;; arithmetic-shift, integer-length.  The remaining
